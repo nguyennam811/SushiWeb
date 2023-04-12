@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
-import { registerUser } from "../../redux/apiRequest";
+import { registerUser } from "../../redux/api";
 
 const Register = () => {
   const [email, setEmail] = useState("");

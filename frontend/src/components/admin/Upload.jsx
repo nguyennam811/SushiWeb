@@ -61,6 +61,7 @@ const Upload = () => {
         title: "Thành công!",
         icon: "success",
       });
+      navigate("/admin/products");
     } catch (err) {
       swal({
         title: "Thất bại!",

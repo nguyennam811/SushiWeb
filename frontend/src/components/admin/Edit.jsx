@@ -28,6 +28,17 @@ const Edit = () => {
   //   }
   // );
 
+  const user = useSelector((state) => state.auth.login?.currentUser);
+    useEffect(() => {
+      if (!user) {
+        navigate("/login");
+      }
+      if (user?.accessToken) {
+        getAllUser(user?.accessToken, dispatch);
+      }
+    }
+  );
+
   useEffect(() => {
     const fetchproducts = async () => {
       const { data } = await axios.get(
@@ -48,8 +59,8 @@ const Edit = () => {
         showConfirmButton: false,
         timer: 900,
       });
-      navigate("/product");
-      setTimeout(() => window.location.reload(false), 1000);
+      navigate("/admin/products");
+      // setTimeout(() => window.location.reload(false), 1000);
     } catch {
       swal({
         title: "Thất bại!",

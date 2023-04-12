@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { loginFailed, loginStart, loginSuccess, registerFailed, registerSuccess, registerStart, logOutStart, logOutSuccess, logOutFailed } from './authSlice';
-// import { getUserFailed, getUserStart, getUserSuccess } from './userSlice';
+import { getUserFailed, getUserStart, getUserSuccess } from './userSlice';
 
 
 export const loginUser = async (user, dispatch, navigate) => {
@@ -42,14 +42,14 @@ export const logOut = async (dispatch, id, navigate, accessToken, axiosJWT) => {
 
 
 // /// add token to header
-// export const getAllUser = async(accessToken, dispatch) => {
-//     dispatch(getUserStart());
-//     try{
-//         const res = await axios.get('http://localhost:3002/v1/user', {
-//             headers:{token: `Bearer ${accessToken}`}
-//         });
-//         dispatch(getUserSuccess(res.data));
-//     } catch(err) {
-//         dispatch(getUserFailed());
-//     }
-// }
+export const getAllUser = async(accessToken, dispatch) => {
+    dispatch(getUserStart());
+    try{
+        const res = await axios.get('http://localhost:3002/v1/user', {
+            headers:{token: `Bearer ${accessToken}`}
+        });
+        dispatch(getUserSuccess(res.data));
+    } catch(err) {
+        dispatch(getUserFailed());
+    }
+}

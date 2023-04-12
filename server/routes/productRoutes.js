@@ -51,6 +51,7 @@ productRoutes.put("/:id", asyncHandler(
     async (req, res) => {
         db.Connection()
             .then(async (collections) => {
+                console.log('hihi')
                 const result = await collections.find((clt) => clt.collectionName === 'products').findOneAndUpdate({ _id: new ObjectId(req.params.id) }, {
                     title: req.body.title,
                     category: req.body.category,

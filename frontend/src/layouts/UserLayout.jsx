@@ -6,16 +6,22 @@ import { CartProvider } from "react-use-cart";
 
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { logOut } from "../redux/apiRequest";
+import { logOut } from "../redux/api";
 import { createAxios } from "../instance/createinstance";
 import { logOutSuccess } from "../redux/authSlice";
 
 import logo from "../images/logo.png";
 import search from "../images/Search.png";
+import { useState, useEffect } from "react";
 
 const UserLayout = () => {
 
   const { totalUniqueItems, emptyCart } = useCart();
+  const [updatedTotalUniqueItems, setUpdatedTotalUniqueItems] = useState(totalUniqueItems);
+  useEffect(() => {
+    setUpdatedTotalUniqueItems(totalUniqueItems);
+  }, [totalUniqueItems]);
+
 
   //Login
   const user = useSelector((state) => state.auth.login.currentUser);
@@ -28,8 +34,6 @@ const UserLayout = () => {
     logOut(dispatch, id, navigate, accessToken, axiosJWT);
     emptyCart();
   };
-
-  
 
   return (
     <>
@@ -81,7 +85,7 @@ const UserLayout = () => {
                 {/* <NavLink to="/register" className="btn btn-outline-dark ms-2"><i className="fa fa-user-plus me-1"></i> Register</NavLink> */}
                 <NavLink to="/cart" className="btn btn-outline-dark ms-2" style={{ backgroundColor: "red" }}>
                   <i className="fa fa-shopping-cart me-1"></i>
-                  {totalUniqueItems}
+                  {updatedTotalUniqueItems}
                 </NavLink>
               </div>
               {user ? (

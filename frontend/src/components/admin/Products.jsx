@@ -14,14 +14,14 @@ const AdminProducts = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   if (!user) {
-  //     navigate("/login");
-  //   }
-  //   if (user?.accessToken) {
-  //     getAllUser(user?.accessToken, dispatch);
-  //   }
-  // });
+  useEffect(() => {
+    if (!user) {
+      navigate("/login");
+    }
+    if (user?.accessToken) {
+      getAllUser(user?.accessToken, dispatch);
+    }
+  });
 
   useEffect(() => {
     const fetchproducts = async () => {

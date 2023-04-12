@@ -1,7 +1,6 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const db = require('..')
-
+const db = require("../index");
 
 let refreshTokens = [];
 
@@ -12,18 +11,23 @@ const authController = {
       const salt = await bcrypt.genSalt(10);
       const hashed = await bcrypt.hash(req.body.password, salt);
 
-      const newUser = await db.Connection()
+      const newUser = await db
+        .Connection()
         .then(async (collections) => {
-          const result = await collections.find((clt) => clt.collectionName === 'users').insertOne({
-            username: req.body.username,
-            email: req.body.email,
-            password: hashed,
-          });
-          return result
+          const result = await collections
+            .find((clt) => clt.collectionName === "users")
+            .insertOne({
+              username: req.body.username,
+              email: req.body.email,
+              password: hashed,
+            });
+          return result;
         })
         .catch(() => {
-          res.status(500)
-        })
+          res.status(500);
+        });
+
+        console.log(newUser)
 
       res.status(200).json(newUser);
     } catch (err) {
@@ -57,13 +61,16 @@ const authController = {
   loginUser: async (req, res) => {
     try {
       const user = await db.Connection()
-        .then( async (collections) => {
-            const result = await collections.find((clt) => clt.collectionName === 'users').findOne({ username: req.body.username });
-            return result
+        .then(async (collections) => {
+          const result = await collections
+            .find((clt) => clt.collectionName === "users")
+            .findOne({ username: req.body.username });
+          return result;
         })
         .catch(() => {
-            res.status(500)
-          })
+          res.status(500);
+        });
+
       if (!user) {
         res.status(404).json("Incorrect username");
       }
@@ -74,24 +81,28 @@ const authController = {
       if (!validPassword) {
         res.status(404).json("Incorrect password");
       }
+      
+      
       if (user && validPassword) {
         try {
-            //Generate access token
-            const accessToken = authController.generateAccessToken(user);
-            //Generate refresh token
-            const refreshToken = authController.generateRefreshToken(user);
-            refreshTokens.push(refreshToken);
-            //STORE REFRESH TOKEN IN COOKIE
-            res.cookie("refreshToken", refreshToken, {
-              httpOnly: true,
-              secure:false,
-              path: "/",
-              sameSite: "strict",
-            });
-            const { password, ...others } = user._doc;
-            res.status(200).json({ ...others, accessToken, refreshToken });
+          //Generate access token
+          const accessToken = authController.generateAccessToken(user);
+          //Generate refresh token
+          const refreshToken = authController.generateRefreshToken(user);
+          refreshTokens.push(refreshToken);
+          //STORE REFRESH TOKEN IN COOKIE
+          res.cookie("refreshToken", refreshToken, {
+            httpOnly: true,
+            secure: false,
+            path: "/",
+            sameSite: "strict",
+          });
+          
+
+          const { password, ...others } = user;
+          res.status(200).json({ ...others, accessToken, refreshToken });
         } catch (err) {
-            console.log(err)
+          console.log(err);
         }
       }
     } catch (err) {
@@ -118,7 +129,7 @@ const authController = {
       refreshTokens.push(newRefreshToken);
       res.cookie("refreshToken", refreshToken, {
         httpOnly: true,
-        secure:false,
+        secure: false,
         path: "/",
         sameSite: "strict",
       });

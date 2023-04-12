@@ -65,9 +65,9 @@ const Navbar = () => {
                 <i class="fa fa-user"></i>
                 <span> {user.username} </span>
               </button>
-              <p className="navbar-user">
+              {/* <p className="navbar-user">
                 Hi, <span> {user.username} </span>{" "}
-              </p>
+              </p> */}
               <NavLink
                 to="/logout"
                 className="ms-2"

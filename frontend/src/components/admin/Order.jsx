@@ -7,18 +7,18 @@ import { getAllUser } from "../../redux/apiRequest";
 
 const Order = () => {
   const [products, setProducts] = useState([]);
-  // const user = useSelector((state) => state.auth.login?.currentUser);
-  // const dispatch = useDispatch();
-  // const navigate = useNavigate();
+  const user = useSelector((state) => state.auth.login?.currentUser);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   if (!user) {
-  //     navigate("/login");
-  //   }
-  //   if (user?.accessToken) {
-  //     getAllUser(user?.accessToken, dispatch);
-  //   }
-  // });
+  useEffect(() => {
+    if (!user) {
+      navigate("/login");
+    }
+    if (user?.accessToken) {
+      getAllUser(user?.accessToken, dispatch);
+    }
+  });
 
   useEffect(() => {
     const fetchproducts = async () => {

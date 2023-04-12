@@ -8,10 +8,10 @@ const Item = (props) => {
 
   const [userCurrent, setUserCurrent] = useState([]);
 
-  //   const user = useSelector((state) => state.auth.login.currentUser);
-  //   useEffect(() => {
-  //     setUserCurrent(user);
-  //   }, [user]);
+  const user = useSelector((state) => state.auth.login.currentUser);
+  useEffect(() => {
+    setUserCurrent(user);
+  }, [user]);
 
   return (
     <div
@@ -53,21 +53,24 @@ const Item = (props) => {
               </button>
             </NavLink>
 
-            <button className="btn btn-primary" onClick={() => addItem(props)}>
+            {/* <button className="btn btn-primary" onClick={() => addItem(props)}>
               Thêm
-            </button>
-          </div>
+            </button> */}
 
-          {/* {userCurrent && (
-            <button className="btn btn-primary" onClick={() => addItem(props)}>
-              Thêm
-            </button>
-          )} */}
-          {/* {!userCurrent && (
-            <NavLink >
-              <button className="btn btn-primary">Thêm</button>
-            </NavLink>
-          )} */}
+            {userCurrent && (
+              <button
+                className="btn btn-primary"
+                onClick={() => addItem(props)}
+              >
+                Thêm
+              </button>
+            )}
+            {!userCurrent && (
+              <NavLink>
+                <button className="btn btn-primary">Thêm</button>
+              </NavLink>
+            )}
+          </div>
         </div>
       </div>
     </div>

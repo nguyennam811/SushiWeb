@@ -70,6 +70,17 @@ const SingleProduct = () => {
               <button className="btn btn-primary">Thêm</button>
             </NavLink>
           )}
+
+          {/* {userCurrent && (
+            <NavLink to="/cart" className="btn btn-primary ms-2">
+            Mua ngay
+          </NavLink>
+          )}
+          {!userCurrent && (
+            <NavLink to="/cart" className="btn btn-primary ms-2">
+              Mua ngay
+            </NavLink>
+          )} */}
           <NavLink to="/cart" className="btn btn-primary ms-2">
             Mua ngay
           </NavLink>

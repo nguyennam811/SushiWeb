@@ -10,6 +10,9 @@ const orderRoutes = require("./routes/orderRoutes");
 const adminRoute = require("./routes/admin");
 const morgan = require("morgan");
 
+const authRoute = require("./routes/auth");
+const userRoute = require("./routes/user");
+
 dotenv.config();
 
 const PORT = 3002;
@@ -46,6 +49,12 @@ app.use("/api/products", productRoutes);
 
 // //get orders
 app.use("/api/orders", orderRoutes);
+
+//ROUTES
+// app.use("/v1/auth", authRoute);
+// app.use("/v1/user", userRoute);//ROUTES
+app.use("/v1/auth", authRoute);
+app.use("/v1/user", userRoute);
 
 // // Admin
 app.use("/admin/auth", adminRoute);

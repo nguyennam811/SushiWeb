@@ -13,11 +13,6 @@ const authSlice = createSlice({
             error: false,
             success: false
         },
-        // // LogOut
-        // logout: {
-        //     isFetching: false,
-        //     error: false
-        // }
         
     },
     reducers:{

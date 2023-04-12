@@ -24,7 +24,6 @@ const adminController = {
         .catch(() => {
           res.status(500)
         })
-
       res.status(200).json(newAdmin);
     } catch (err) {
       res.status(500).json(err);

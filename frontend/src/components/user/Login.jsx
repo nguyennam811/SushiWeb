@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { loginUser } from "../../redux/apiRequest";
+import { loginUser } from "../../redux/api";
 
 const LoginUser = () => {
   const [username, setUsername] = useState("");

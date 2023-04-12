@@ -6,12 +6,22 @@ import axios from "axios";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import swal from "sweetalert";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
+
+import { getAllUser } from "../../redux/api";
 
 const Checkout = () => {
   // const user = useSelector((state) => state.auth.login?.currentUser);
   // const getUser = useSelector(
   //   (state) => state.auth.login?.currentUser.username
   // );
+  const user = useSelector((state) => state.auth.login?.currentUser);
+  const getUser = useSelector(
+    (state) => state.auth.login?.currentUser.username
+  );
+
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
   const { totalUniqueItems, items, cartTotal, emptyCart } = useCart();
@@ -32,6 +42,7 @@ const Checkout = () => {
       city: "",
       address: "",
       district: "",
+      User: getUser,
       // User: getUser,
       notes: "",
       listProducts: arrayProduct,
@@ -71,14 +82,14 @@ const Checkout = () => {
     },
   });
 
-  // useEffect(() => {
-  //   if (!user) {
-  //     navigate("/login");
-  //   }
-  //   if (user?.accessToken) {
-  //     getAllUser(user?.accessToken, dispatch);
-  //   }
-  // });
+  useEffect(() => {
+    if (!user) {
+      navigate("/login");
+    }
+    if (user?.accessToken) {
+      getAllUser(user?.accessToken, dispatch);
+    }
+  });
 
   return (
     <div>
